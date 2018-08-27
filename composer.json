@@ -1,0 +1,29 @@
+{
+    "name": "jd-kepler/jd-kepler",
+    "description": "JingDong Kepler Api Project.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "smallsea",
+            "email": "seaheaker@163.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.1",
+        "ext-json": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Jd\\Kepler\\": "kepler/src",
+            "Jd\\Kepler\\Goods\\": "kepler/src/Goods",
+            "Jd\\Kepler\\UnionService\\": "kepler/src/UnionService"
+        }
+    },
+    "extra": {
+      "branch-alias": {
+        "dev-master": "1.0.x-dev"
+      }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
