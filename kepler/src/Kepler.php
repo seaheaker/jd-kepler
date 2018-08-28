@@ -12,6 +12,7 @@ namespace Jd\Kepler;
 use Exception;
 use Jd\Kepler\Goods\JdKeplerItemQueryCategoriesByFid;
 use Jd\Kepler\Goods\JdKeplerXuanPinSearchSku;
+use Jd\Kepler\Goods\JdKplOpenItemQueryCommentInfoySkus;
 use Jd\Kepler\UnionService\JdKeplerOrderGetList;
 use Jd\Kepler\UnionService\JdKeplerServicePromotionGoodsInfo;
 use Jd\Kepler\UnionService\JdKplOpenBatchConvertCpslink;
@@ -50,6 +51,7 @@ class Kepler
         'jd.kpl.open.unionservice.queryimportorders'    => JdKplOpenUnionServiceQueryImportOrders::class,
         'jd.kpl.open.unionservice.queryCommisions'      => JdKplOpenUnionServiceQueryCommisions::class,
         'jd.kpl.open.cps.convert.keplerurl'             => JdKplOpenCpsConvertKeplerUrl::class,
+        'jd.kpl.open.item.querycommentinfoyskus'        => JdKplOpenItemQueryCommentInfoySkus::class
     ];
 
     public function __construct(array $config = [])
