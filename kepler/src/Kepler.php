@@ -180,6 +180,21 @@ class Kepler
     }
 
     /**
+     * 获取对象
+     * @param $api_method
+     * @return object|null
+     */
+    public function createObject($api_method)
+    {
+        if (!isset($this->classMap[$api_method])) {
+            return NULL;
+        }
+
+        $object = new $this->classMap[$api_method]();
+        return $object ? $object : NULL;
+    }
+
+    /**
      * JSON数据格式化
      * @param $response
      * @return mixed
