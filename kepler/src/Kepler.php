@@ -12,6 +12,7 @@ namespace Jd\Kepler;
 use Exception;
 use Jd\Kepler\Goods\JdKeplerItemQueryCategoriesByFid;
 use Jd\Kepler\Goods\JdKeplerXuanPinSearchSku;
+use Jd\Kepler\Goods\JdKplOpenItemGetWarestyLeandJsByWareId;
 use Jd\Kepler\Goods\JdKplOpenItemQueryCommentInfoySkus;
 use Jd\Kepler\Goods\JingDongNewWareMobileBigFieldGet;
 use Jd\Kepler\Goods\PublicProductBaseQuery;
@@ -55,7 +56,8 @@ class Kepler
         'jd.kpl.open.cps.convert.keplerurl'             => JdKplOpenCpsConvertKeplerUrl::class,
         'jd.kpl.open.item.querycommentinfoyskus'        => JdKplOpenItemQueryCommentInfoySkus::class,
         'public.product.base.query'                     => PublicProductBaseQuery::class,
-        'jingdong.new.ware.mobilebigfield.get'          => JingDongNewWareMobileBigFieldGet::class
+        'jingdong.new.ware.mobilebigfield.get'          => JingDongNewWareMobileBigFieldGet::class,
+        'jd.kpl.open.item.getwarestyleandjsbywareid'    => JdKplOpenItemGetWarestyLeandJsByWareId::class,
     ];
 
     public function __construct(array $config = [])
