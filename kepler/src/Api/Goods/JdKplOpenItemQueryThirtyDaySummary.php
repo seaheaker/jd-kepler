@@ -1,36 +1,23 @@
 <?php
 /**
- * 商品基本信息查询
+ * 近30日销量
  * User: smallsea
  * Date: 2018/8/17
- * Time: 17:25
+ * Time: 17:53
  */
 
-namespace Jd\Kepler\Goods;
+namespace Jd\Kepler\Api\Goods;
 
 
 use Jd\Kepler\KeplerBase;
 
-class PublicProductBaseQuery extends KeplerBase
+class JdKplOpenItemQueryThirtyDaySummary extends KeplerBase
 {
-    protected $areaId;
+    /**
+     * 商品id
+     * @var int
+     */
     protected $sku;
-
-    /**
-     * @return mixed
-     */
-    public function getAreaId()
-    {
-        return $this->areaId;
-    }
-
-    /**
-     * @param mixed $areaId
-     */
-    public function setAreaId($areaId): void
-    {
-        $this->areaId = $areaId;
-    }
 
     /**
      * @return mixed
@@ -54,6 +41,6 @@ class PublicProductBaseQuery extends KeplerBase
      */
     public function getApiMethod(): string
     {
-        return 'public.product.base.query';
+        return 'jd.kpl.open.item.querythirtydaysummary';
     }
 }

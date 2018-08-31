@@ -1,20 +1,20 @@
 <?php
 /**
- * 评论信息列表
+ * Created by PhpStorm.
  * User: smallsea
- * Date: 2018/8/28
- * Time: 12:54
+ * Date: 2018/8/31
+ * Time: 14:33
  */
 
-namespace Jd\Kepler\Goods;
+namespace Jd\Kepler\Api\Goods;
 
 
 use Jd\Kepler\KeplerBase;
 
-class JdKplOpenItemQueryCommentInfoySkus extends KeplerBase
+class JdKplOpenItemQueryBookBasicField extends KeplerBase
 {
     /**
-     * 多个sku，逗号分隔
+     * 商品id，英文逗号分隔
      * @var string
      */
     protected $skus;
@@ -41,6 +41,6 @@ class JdKplOpenItemQueryCommentInfoySkus extends KeplerBase
      */
     public function getApiMethod(): string
     {
-        return "jd.kpl.open.item.querycommentinfoyskus";
+        return "jd.kpl.open.item.querybookbasicfield";
     }
 }

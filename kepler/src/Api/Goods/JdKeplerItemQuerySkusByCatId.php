@@ -6,44 +6,52 @@
  * Time: 17:32
  */
 
-namespace Jd\Kepler\Goods;
+namespace Jd\Kepler\Api\Goods;
 
 use Jd\Kepler\KeplerBase;
 
 class JdKeplerItemQuerySkusByCatId extends KeplerBase
 {
+    /**
+     * 分类id
+     * @var int
+     */
     protected $catId;
 
+    /**
+     * 游标
+     * @var string
+     */
     protected $scrollId;
 
     /**
-     * @return mixed
+     * @return int
      */
-    public function getCatId()
+    public function getCatId(): int
     {
         return $this->catId;
     }
 
     /**
-     * @param mixed $catId
+     * @param int $catId
      */
-    public function setCatId($catId): void
+    public function setCatId(int $catId): void
     {
         $this->catId = $catId;
     }
 
     /**
-     * @return mixed
+     * @return string
      */
-    public function getScrollId()
+    public function getScrollId(): string
     {
         return $this->scrollId;
     }
 
     /**
-     * @param mixed $scrollId
+     * @param string $scrollId
      */
-    public function setScrollId($scrollId): void
+    public function setScrollId(string $scrollId): void
     {
         $this->scrollId = $scrollId;
     }

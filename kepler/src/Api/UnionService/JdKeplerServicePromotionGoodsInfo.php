@@ -6,7 +6,7 @@
  * Time: 14:44
  */
 
-namespace Jd\Kepler\UnionService;
+namespace Jd\Kepler\Api\UnionService;
 
 
 use Jd\Kepler\KeplerBase;

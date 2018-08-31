@@ -6,7 +6,7 @@
  * Time: 17:43
  */
 
-namespace Jd\Kepler\Goods;
+namespace Jd\Kepler\Api\Goods;
 
 
 use Jd\Kepler\KeplerBase;
@@ -14,20 +14,24 @@ use Jd\Kepler\KeplerBase;
 class JdKeplerXuanPinSkuPromotionBatch extends KeplerBase
 {
 
+    /**
+     * 批量获取sku推广信息
+     * @var int|int[]
+     */
     protected $skuIds;
 
     /**
-     * @return array
+     * @return int|int[]
      */
-    public function getSkuIds(): array
+    public function getSkuIds()
     {
         return $this->skuIds;
     }
 
     /**
-     * @param array $skuIds
+     * @param int|int[] $skuIds
      */
-    public function setSkuIds(array $skuIds): void
+    public function setSkuIds($skuIds): void
     {
         $this->skuIds = $skuIds;
     }

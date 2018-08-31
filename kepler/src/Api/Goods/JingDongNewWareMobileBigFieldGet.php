@@ -6,19 +6,23 @@
  * Time: 17:40
  */
 
-namespace Jd\Kepler\Goods;
+namespace Jd\Kepler\Api\Goods;
 
 
 use Jd\Kepler\KeplerBase;
 
 class JingDongNewWareMobileBigFieldGet extends KeplerBase
 {
+    /**
+     * 商品编号
+     * @var int
+     */
     protected $skuId;
 
     /**
      * @return mixed
      */
-    public function getSkuId()
+    public function getSkuId(): int
     {
         return $this->skuId;
     }

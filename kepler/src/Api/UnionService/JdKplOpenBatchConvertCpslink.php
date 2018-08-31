@@ -6,7 +6,7 @@
  * Time: 15:05
  */
 
-namespace Jd\Kepler\UnionService;
+namespace Jd\Kepler\Api\UnionService;
 
 
 use Jd\Kepler\KeplerBase;
@@ -30,11 +30,6 @@ class JdKplOpenBatchConvertCpslink extends KeplerBase
      * @var string
      */
     protected $appkey;
-
-    public function initData()
-    {
-        $this->setType("0");
-    }
 
     /**
      *
@@ -83,6 +78,14 @@ class JdKplOpenBatchConvertCpslink extends KeplerBase
     public function setAppkey($appkey): void
     {
         $this->appkey = $appkey;
+    }
+
+    /**
+     * 初始化数据
+     */
+    public function initData()
+    {
+        $this->setType("0");
     }
 
     /**

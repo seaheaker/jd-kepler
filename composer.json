@@ -15,13 +15,16 @@
     "autoload": {
         "psr-4": {
             "Jd\\Kepler\\": "kepler/src",
-            "Jd\\Kepler\\Goods\\": "kepler/src/Goods",
-            "Jd\\Kepler\\UnionService\\": "kepler/src/UnionService"
+            "Jd\\Kepler\\Api\\": "kepler/src/Api",
+            "Jd\\Kepler\\Api\\Goods\\": "kepler/src/Api/Goods",
+            "Jd\\Kepler\\Api\\UnionService\\": "kepler/src/Api/UnionService",
+            "Jd\\Kepler\\Api\\Marketing\\": "kepler/src/Api/Marketing",
+            "Jd\\Kepler\\Exception\\": "kepler/src/Exception"
         }
     },
     "extra": {
       "branch-alias": {
-        "dev-master": "1.0.x-dev"
+        "dev-master": "1.0.1-dev"
       }
     },
     "minimum-stability": "dev",

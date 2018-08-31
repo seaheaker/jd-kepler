@@ -1,6 +1,6 @@
 <?php
 /**
- * 对外
+ * 京东开普勒
  * User: smallsea
  * Date: 2018/8/27
  * Time: 14:18
@@ -8,56 +8,98 @@
 
 namespace Jd\Kepler;
 
-
 use Exception;
-use Jd\Kepler\Goods\JdKeplerItemQueryCategoriesByFid;
-use Jd\Kepler\Goods\JdKeplerXuanPinSearchSku;
-use Jd\Kepler\Goods\JdKplOpenItemGetWarestyLeandJsByWareId;
-use Jd\Kepler\Goods\JdKplOpenItemQueryCommentInfoySkus;
-use Jd\Kepler\Goods\JingDongNewWareMobileBigFieldGet;
-use Jd\Kepler\Goods\PublicProductBaseQuery;
-use Jd\Kepler\UnionService\JdKeplerOrderGetList;
-use Jd\Kepler\UnionService\JdKeplerServicePromotionGoodsInfo;
-use Jd\Kepler\UnionService\JdKplOpenBatchConvertCpslink;
-use Jd\Kepler\UnionService\JdKplOpenCpsConvertKeplerUrl;
-use Jd\Kepler\UnionService\JdKplOpenUnionServiceQueryCommisions;
-use Jd\Kepler\UnionService\JdKplOpenUnionServiceQueryImportOrders;
+use Jd\Kepler\Api\Goods\JdKeplerItemQueryCategoriesByFid;
+use Jd\Kepler\Api\Goods\JdKeplerItemQuerySkusByCatId;
+use Jd\Kepler\Api\Goods\JdKeplerSkuProductService;
+use Jd\Kepler\Api\Goods\JdKeplerXuanPinGetPkgList;
+use Jd\Kepler\Api\Goods\JdKeplerXuanPinGetSkuIdList;
+use Jd\Kepler\Api\Goods\JdKeplerXuanPinSearchSku;
+use Jd\Kepler\Api\Goods\JdKeplerXuanPinSearchSkuByCategory;
+use Jd\Kepler\Api\Goods\JdKeplerXuanPinSkuPromotionBatch;
+use Jd\Kepler\Api\Goods\JdKplOpenItemFindJoinActives;
+use Jd\Kepler\Api\Goods\JdKplOpenItemGetMobileWarestyLeandJsByWareId;
+use Jd\Kepler\Api\Goods\JdKplOpenItemGetWarestyLeandJsByWareId;
+use Jd\Kepler\Api\Goods\JdKplOpenItemQueryBookBasicField;
+use Jd\Kepler\Api\Goods\JdKplOpenItemQueryBookBigField;
+use Jd\Kepler\Api\Goods\JdKplOpenItemQueryCommentInfoySkus;
+use Jd\Kepler\Api\Goods\JdKplOpenItemQueryStock;
+use Jd\Kepler\Api\Goods\JdKplOpenItemQueryThirtyDaySummary;
+use Jd\Kepler\Api\Goods\JdKplOpenKeplerQuerySkuDescription;
+use Jd\Kepler\Api\Goods\JdKplOpenPromiseDosConfig;
+use Jd\Kepler\Api\Goods\JdKplOpenXuanPinSearchGoods;
+use Jd\Kepler\Api\Goods\JingDongNewWareMobileBigFieldGet;
+use Jd\Kepler\Api\Goods\PublicProductBaseQuery;
+use Jd\Kepler\Api\Marketing\JdKplOpenPromotionPidGetPid;
+use Jd\Kepler\Api\Marketing\JdKplOpenPromotionPidUrlConvert;
+use Jd\Kepler\Api\Marketing\JdKplOpenPromotionPidValidatePid;
+use Jd\Kepler\Api\UnionService\JdKeplerOrderGetList;
+use Jd\Kepler\Api\UnionService\JdKeplerServicePromotionGoodsInfo;
+use Jd\Kepler\Api\UnionService\JdKplOpenBatchConvertCpslink;
+use Jd\Kepler\Api\UnionService\JdKplOpenCpsConvertKeplerUrl;
+use Jd\Kepler\Api\UnionService\JdKplOpenTradeTencentOrderList;
+use Jd\Kepler\Api\UnionService\JdKplOpenUnionServiceQueryCommisions;
+use Jd\Kepler\Api\UnionService\JdKplOpenUnionServiceQueryImportOrders;
+use Jd\Kepler\Api\UnionService\JdMMiaoShaAreaList;
 
 class Kepler
 {
+    use KeplerUtil;
+
     private $appKey;
 
     private $appSecret;
 
     private $accessToken;
 
-    private $version = "2.0";
+    private $version;
 
-    private $format = "json";
+    private $format;
 
-    private $signMethod = 'md5';
+    private $signMethod;
 
-    private $paramJson = 'param_json';
+    private $paramJson;
 
     private $serverUrl;
 
-    private $connectTimeout = 0;
-
-    private $readTimeout = 0;
-
+    /**
+     * 接口类表
+     * @var array
+     */
     public $classMap = [
-        'jd.kepler.item.querycategoriesbyfid'           => JdKeplerItemQueryCategoriesByFid::class,
-        'jd.kepler.xuanpin.search.sku'                  => JdKeplerXuanPinSearchSku::class,
-        'jd.kepler.service.promotion.goodsinfo'         => JdKeplerServicePromotionGoodsInfo::class,
-        'jd.kpl.open.batch.convert.cpslink'             => JdKplOpenBatchConvertCpslink::class,
-        'jd.kepler.order.getlist'                       => JdKeplerOrderGetList::class,
-        'jd.kpl.open.unionservice.queryimportorders'    => JdKplOpenUnionServiceQueryImportOrders::class,
-        'jd.kpl.open.unionservice.queryCommisions'      => JdKplOpenUnionServiceQueryCommisions::class,
-        'jd.kpl.open.cps.convert.keplerurl'             => JdKplOpenCpsConvertKeplerUrl::class,
-        'jd.kpl.open.item.querycommentinfoyskus'        => JdKplOpenItemQueryCommentInfoySkus::class,
-        'public.product.base.query'                     => PublicProductBaseQuery::class,
-        'jingdong.new.ware.mobilebigfield.get'          => JingDongNewWareMobileBigFieldGet::class,
-        'jd.kpl.open.item.getwarestyleandjsbywareid'    => JdKplOpenItemGetWarestyLeandJsByWareId::class,
+        'jd.kepler.item.querycategoriesbyfid'               => JdKeplerItemQueryCategoriesByFid::class,
+        'jd.kepler.item.queryskusbycatid'                   => JdKeplerItemQuerySkusByCatId::class,
+        'jd.kepler.sku.ProductService'                      => JdKeplerSkuProductService::class,
+        'jd.kepler.xuanpin.getpkglist'                      => JdKeplerXuanPinGetPkgList::class,
+        'jd.kepler.xuanpin.getskuidlist'                    => JdKeplerXuanPinGetSkuIdList::class,
+        'jd.kepler.xuanpin.search.sku'                      => JdKeplerXuanPinSearchSku::class,
+        'jd.kepler.xuanpin.search.sku.by.category'          => JdKeplerXuanPinSearchSkuByCategory::class,
+        'jd.kepler.xuanpin.sku.promotion.batch'             => JdKeplerXuanPinSkuPromotionBatch::class,
+        'jd.kpl.open.item.findjoinactives'                  => JdKplOpenItemFindJoinActives::class,
+        'jd.kpl.open.item.getmobilewarestyleandjsbywareid'  => JdKplOpenItemGetMobileWarestyLeandJsByWareId::class,
+        'jd.kpl.open.item.getwarestyleandjsbywareid'        => JdKplOpenItemGetWarestyLeandJsByWareId::class,
+        'jd.kpl.open.item.querybookbasicfield'              => JdKplOpenItemQueryBookBasicField::class,
+        'jd.kpl.open.item.querybookbigfield'                => JdKplOpenItemQueryBookBigField::class,
+        'jd.kpl.open.item.querycommentinfoyskus'            => JdKplOpenItemQueryCommentInfoySkus::class,
+        'jd.kpl.open.item.querystock'                       => JdKplOpenItemQueryStock::class,
+        'jd.kpl.open.item.querythirtydaysummary'            => JdKplOpenItemQueryThirtyDaySummary::class,
+        'jd.kpl.open.kepler.query.skudescription'           => JdKplOpenKeplerQuerySkuDescription::class,
+        'jd.kpl.open.promise.dos.config'                    => JdKplOpenPromiseDosConfig::class,
+        'jd.kpl.open.xuanpin.searchgoods'                   => JdKplOpenXuanPinSearchGoods::class,
+        'jingdong.new.ware.mobilebigfield.get'              => JingDongNewWareMobileBigFieldGet::class,
+        'public.product.base.query'                         => PublicProductBaseQuery::class,
+        'jd.kpl.open.promotion.pid.getpid'                  => JdKplOpenPromotionPidGetPid::class,
+        'jd.kpl.open.promotion.pidurlconvert'               => JdKplOpenPromotionPidUrlConvert::class,
+        'jd.kpl.open.promotion.pid.validatepid'             => JdKplOpenPromotionPidValidatePid::class,
+        'jd.kepler.order.getlist'                           => JdKeplerOrderGetList::class,
+        'jd.kepler.service.promotion.goodsinfo'             => JdKeplerServicePromotionGoodsInfo::class,
+        'jd.kpl.open.batch.convert.cpslink'                 => JdKplOpenBatchConvertCpslink::class,
+        'jd.kpl.open.cps.convert.keplerurl'                 => JdKplOpenCpsConvertKeplerUrl::class,
+        'jd.kpl.open.trade.tencent.orderlist'               => JdKplOpenTradeTencentOrderList::class,
+        'jd.kpl.open.unionservice.queryCommisions'          => JdKplOpenUnionServiceQueryCommisions::class,
+        'jd.kpl.open.unionservice.queryimportorders'        => JdKplOpenUnionServiceQueryImportOrders::class,
+        'jd.m.miaoShaAreaList'                              => JdMMiaoShaAreaList::class
+
     ];
 
     public function __construct(array $config = [])
@@ -72,6 +114,13 @@ class Kepler
      */
     private function initData($config)
     {
+
+        //初始化以下数据
+        $this->version = '2.0';
+        $this->format = 'json';
+        $this->signMethod = 'md5';
+        $this->paramJson = 'param_json';
+
         foreach ($config as $field => $item) {
             $this->$field = $item;
         }
@@ -96,63 +145,6 @@ class Kepler
         return strtoupper(md5($stringToBeSigned));
     }
 
-    /**
-     * 发起请求
-     * @param $url
-     * @param null $postFields
-     * @return mixed
-     * @throws Exception
-     */
-    private function curl($url, $postFields = null)
-    {
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_FAILONERROR, false);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        if ($this->readTimeout) {
-            curl_setopt($ch, CURLOPT_TIMEOUT, $this->readTimeout);
-        }
-        if ($this->connectTimeout) {
-            curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, $this->connectTimeout);
-        }
-        //https 请求
-        if (strlen($url) > 5 && strtolower(substr($url, 0, 5)) == "https") {
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-        }
-
-        if (is_array($postFields) && 0 < count($postFields)) {
-            $postBodyString = "";
-            $postMultipart = false;
-            foreach ($postFields as $k => $v) {
-                //判断是不是文件上传,文件上传用multipart/form-data，否则用www-form-urlencoded
-                if ("@" != substr($v, 0, 1)) {
-                    $postBodyString .= "$k=" . urlencode($v) . "&";
-                } else {
-                    $postMultipart = true;
-                }
-            }
-            unset($k, $v);
-            curl_setopt($ch, CURLOPT_POST, true);
-            if ($postMultipart) {
-                curl_setopt($ch, CURLOPT_POSTFIELDS, $postFields);
-            } else {
-                curl_setopt($ch, CURLOPT_POSTFIELDS, substr($postBodyString, 0, -1));
-            }
-        }
-        $response = curl_exec($ch);
-
-        if (curl_errno($ch)) {
-            throw new Exception(curl_error($ch), 0);
-        } else {
-            $httpStatusCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-            if (200 !== $httpStatusCode) {
-                throw new Exception($response, $httpStatusCode);
-            }
-        }
-        curl_close($ch);
-        return $response;
-    }
 
     /**
      * 系统必要参数
@@ -163,28 +155,14 @@ class Kepler
     private function systemParams($apiMethod, $apiVersion = null, $accessToken = null)
     {
         //组装必要的数据
-        $params['app_key']      = $this->appKey;
-        $params['timestamp']    = date('Y-m-d H:i:s');
-        $params['format']       = $this->format;
-        $params['v']            = null== $apiVersion ? $this->version : $apiVersion;
-        $params['sign_method']  = $this->signMethod;
+        $params['app_key'] = $this->appKey;
+        $params['timestamp'] = date('Y-m-d H:i:s');
+        $params['format'] = $this->format;
+        $params['v'] = null == $apiVersion ? $this->version : $apiVersion;
+        $params['sign_method'] = $this->signMethod;
         $params['access_token'] = null == $accessToken ? $this->accessToken : $accessToken;
-        $params['method']       = $apiMethod;
+        $params['method'] = $apiMethod;
         return $params;
-    }
-
-    /**
-     * 请求地址生成
-     * @param $requestParams
-     * @return string
-     */
-    private function createRequestUrl($requestParams)
-    {
-        $requestUrl = $this->serverUrl . "?";
-        foreach ($requestParams as $sysParamKey => $sysParamValue) {
-            $requestUrl .= "$sysParamKey=" . urlencode($sysParamValue) . "&";
-        }
-        return $requestUrl;
     }
 
     /**
@@ -200,22 +178,6 @@ class Kepler
 
         $object = new $this->classMap[$api_method]();
         return $object ? $object : NULL;
-    }
-
-    /**
-     * JSON数据格式化
-     * @param $response
-     * @return mixed
-     */
-    private function jsonFormatResponseData($response)
-    {
-        $responseObject = json_decode($response);
-        if (null !== $responseObject) {
-            foreach ($responseObject as $propKey => $propValue) {
-                $responseObject = $propValue;
-            }
-        }
-        return $responseObject;
     }
 
     /**
@@ -239,7 +201,7 @@ class Kepler
             $sign = $this->generateSign($requestParams);
             $requestParams['sign'] = $sign;
 
-            $requestUrl = $this->createRequestUrl($requestParams);
+            $requestUrl = $this->createRequestUrl($this->serverUrl, $requestParams);
             $response = $this->curl($requestUrl, $apiParams);
 
             //解析数据

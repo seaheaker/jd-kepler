@@ -1,17 +1,17 @@
 <?php
 /**
- * 获取PC端样式
+ * 获取移动端样式
  * User: smallsea
  * Date: 2018/8/29
- * Time: 14:31
+ * Time: 14:40
  */
 
-namespace Jd\Kepler\Goods;
+namespace Jd\Kepler\Api\Goods;
 
 
 use Jd\Kepler\KeplerBase;
 
-class JdKplOpenItemGetWarestyLeandJsByWareId extends KeplerBase
+class JdKplOpenItemGetMobileWarestyLeandJsByWareId extends KeplerBase
 {
     /**
      * 商品编号
@@ -41,6 +41,6 @@ class JdKplOpenItemGetWarestyLeandJsByWareId extends KeplerBase
      */
     public function getApiMethod(): string
     {
-        return "jd.kpl.open.item.getwarestyleandjsbywareid";
+        return "jd.kpl.open.item.getmobilewarestyleandjsbywareid";
     }
 }

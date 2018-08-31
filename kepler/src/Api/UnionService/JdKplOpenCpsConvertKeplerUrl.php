@@ -6,7 +6,7 @@
  * Time: 17:22
  */
 
-namespace Jd\Kepler\UnionService;
+namespace Jd\Kepler\Api\UnionService;
 
 
 use Jd\Kepler\KeplerBase;
@@ -143,6 +143,15 @@ class JdKplOpenCpsConvertKeplerUrl extends KeplerBase
     public function setType($type): void
     {
         $this->type = $type;
+    }
+
+    /**
+     * 初始化数据
+     */
+    public function initData()
+    {
+        $this->setSourceEmt('14');
+        $this->setType('1');
     }
 
     /**

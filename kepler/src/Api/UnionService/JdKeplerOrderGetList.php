@@ -6,7 +6,7 @@
  * Time: 16:38
  */
 
-namespace Jd\Kepler\UnionService;
+namespace Jd\Kepler\Api\UnionService;
 
 
 use Jd\Kepler\KeplerBase;
@@ -42,16 +42,6 @@ class JdKeplerOrderGetList extends KeplerBase
      * @var integer
      */
     protected $orderId;
-
-    /**
-     * 初始化数据(设置默认值)
-     */
-    public function initData()
-    {
-        $this->setVersion("2.0");
-        $this->setPageIndex(1);
-        $this->setPageSize(20);
-    }
 
     /**
      * 起始时间
@@ -141,6 +131,16 @@ class JdKeplerOrderGetList extends KeplerBase
     public function setOrderId($orderId): void
     {
         $this->orderId = $orderId;
+    }
+
+    /**
+     * 初始化数据(设置默认值)
+     */
+    public function initData()
+    {
+        $this->setVersion("2.0");
+        $this->setPageIndex(1);
+        $this->setPageSize(20);
     }
 
     /**

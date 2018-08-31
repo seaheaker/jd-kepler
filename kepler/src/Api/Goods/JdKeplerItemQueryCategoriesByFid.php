@@ -6,28 +6,30 @@
  * Time: 17:29
  */
 
-namespace Jd\Kepler\Goods;
+namespace Jd\Kepler\Api\Goods;
 
 use Jd\Kepler\KeplerBase;
 
 class JdKeplerItemQueryCategoriesByFid extends KeplerBase
 {
+    /**
+     * 父id，填0获取一级分类
+     * @var int
+     */
     protected $fid;
 
     /**
-     * 分类ID
-     * @return mixed
+     * @return int
      */
-    public function getFid()
+    public function getFid(): int
     {
         return $this->fid;
     }
 
     /**
-     * 分类ID
-     * @param mixed $fid
+     * @param int $fid
      */
-    public function setFid($fid): void
+    public function setFid(int $fid): void
     {
         $this->fid = $fid;
     }
