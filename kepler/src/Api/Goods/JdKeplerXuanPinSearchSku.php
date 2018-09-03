@@ -21,19 +21,19 @@ class JdKeplerXuanPinSearchSku extends KeplerBase
 
     /**
      * 一级分类，暂时仅支持单条
-     * @var string
+     * @var string[]
      */
     protected $cids1;
 
     /**
      * 二级分类，暂时仅支持单条
-     * @var string
+     * @var string[]
      */
     protected $cids2;
 
     /**
      * 三级分类，暂时仅支持单条
-     * @var string
+     * @var string[]
      */
     protected $cids3;
 
@@ -90,52 +90,53 @@ class JdKeplerXuanPinSearchSku extends KeplerBase
     }
 
     /**
-     * @return string
+     * @return string[]
      */
-    public function getCids1(): string
+    public function getCids1(): array
     {
         return $this->cids1;
     }
 
     /**
-     * @param string $cids1
+     * @param string[] $cids1
      */
-    public function setCids1(string $cids1): void
+    public function setCids1(array $cids1): void
     {
         $this->cids1 = $cids1;
     }
 
     /**
-     * @return string
+     * @return string[]
      */
-    public function getCids2(): string
+    public function getCids2(): array
     {
         return $this->cids2;
     }
 
     /**
-     * @param string $cids2
+     * @param string[] $cids2
      */
-    public function setCids2(string $cids2): void
+    public function setCids2(array $cids2): void
     {
         $this->cids2 = $cids2;
     }
 
     /**
-     * @return string
+     * @return string[]
      */
-    public function getCids3(): string
+    public function getCids3(): array
     {
         return $this->cids3;
     }
 
     /**
-     * @param string $cids3
+     * @param string[] $cids3
      */
-    public function setCids3(string $cids3): void
+    public function setCids3(array $cids3): void
     {
         $this->cids3 = $cids3;
     }
+
 
     /**
      * @return int
