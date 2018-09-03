@@ -84,6 +84,8 @@ class JdKeplerXuanPinGetSkuIdList extends KeplerBase
      */
     public function initData()
     {
+        parent::initData();
+
         $this->setPageNo(1);
         $this->setPageSize(40);
     }

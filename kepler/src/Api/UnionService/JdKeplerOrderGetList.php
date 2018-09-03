@@ -138,6 +138,8 @@ class JdKeplerOrderGetList extends KeplerBase
      */
     public function initData()
     {
+        parent::initData();
+
         $this->setVersion("2.0");
         $this->setPageIndex(1);
         $this->setPageSize(20);

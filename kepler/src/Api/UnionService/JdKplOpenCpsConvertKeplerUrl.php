@@ -150,6 +150,7 @@ class JdKplOpenCpsConvertKeplerUrl extends KeplerBase
      */
     public function initData()
     {
+        parent::initData();
         $this->setSourceEmt('14');
         $this->setType('1');
     }

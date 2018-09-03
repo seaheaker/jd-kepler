@@ -238,6 +238,8 @@ class JdKeplerXuanPinSearchSku extends KeplerBase
      */
     public function initData()
     {
+        parent::initData();
+
         $this->setPageNum(1);
         $this->setPageSize(40);
         $this->setSellerType(2);

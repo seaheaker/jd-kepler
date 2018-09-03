@@ -216,6 +216,8 @@ class JdKplOpenTradeTencentOrderList extends KeplerBase
      */
     public function initData()
     {
+        parent::initData();
+
         $this->setPage(0);
         $this->setSize(40);
         $this->setState(4096);

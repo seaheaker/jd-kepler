@@ -128,6 +128,8 @@ class JdKplOpenXuanPinSearchGoods extends KeplerBase
      */
     public function initData()
     {
+        parent::initData();
+
         $this->setPageNum(1);
         $this->setPageSize(100);
         $this->setOrderField(0);

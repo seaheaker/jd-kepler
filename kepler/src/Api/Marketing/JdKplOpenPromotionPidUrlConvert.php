@@ -172,6 +172,8 @@ class JdKplOpenPromotionPidUrlConvert extends KeplerBase
      */
     public function initData()
     {
+        parent::initData();
+
         $this->setPositionId(0);
         $this->setVersion("2.0");
         $this->setShortUrl("1");

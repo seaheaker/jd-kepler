@@ -85,6 +85,7 @@ class JdKplOpenBatchConvertCpslink extends KeplerBase
      */
     public function initData()
     {
+        parent::initData();
         $this->setType("0");
     }
 

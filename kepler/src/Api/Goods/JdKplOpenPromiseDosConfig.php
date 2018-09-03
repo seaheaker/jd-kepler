@@ -239,6 +239,8 @@ class JdKplOpenPromiseDosConfig extends KeplerBase
      */
     public function initData()
     {
+        parent::initData();
+
         $this->setSource('kepler');
     }
 

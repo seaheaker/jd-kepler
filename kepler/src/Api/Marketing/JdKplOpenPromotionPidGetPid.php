@@ -128,6 +128,8 @@ class JdKplOpenPromotionPidGetPid extends KeplerBase
      */
     public function initData()
     {
+        parent::initData();
+
         $this->setVersion('2.0');
     }
 

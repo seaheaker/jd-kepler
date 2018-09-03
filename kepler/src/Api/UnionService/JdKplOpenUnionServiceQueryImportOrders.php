@@ -259,6 +259,8 @@ class JdKplOpenUnionServiceQueryImportOrders extends KeplerBase
      */
     public function initData()
     {
+        parent::initData();
+
         $this->setYn(-255);
         $this->setRefStatus(-255);
         $this->setClearStatus(-255);
