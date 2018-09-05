@@ -58,6 +58,16 @@ class JdKplOpenItemFindJoinActives extends KeplerBase
     }
 
     /**
+     * 初始化数据
+     */
+    protected function initData()
+    {
+        parent::initData();
+        $this->setVersion('2.0');
+    }
+
+
+    /**
      * 接口方法
      * @return string|array|mixed
      */

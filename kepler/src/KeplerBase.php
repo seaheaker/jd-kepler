@@ -72,7 +72,7 @@ class KeplerBase implements KeplerApi
             unset($property['version']);
 
         foreach ($property as $field => $item) {
-            if (null !== $this->$field) {
+            if (null !== $this->$field || !empty($this->$field)) {
                 $apiParams[$field] = $this->$field;
             }
         }
